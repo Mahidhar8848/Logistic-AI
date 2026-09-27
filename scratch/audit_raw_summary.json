@@ -1,0 +1,576 @@
+[
+  {
+    "Filename": "carrier.csv",
+    "FileType": "CSV",
+    "Rows": 4,
+    "Columns": 7,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "carrier_id",
+      "carrier_name",
+      "mode",
+      "cost_per_kg",
+      "avg_transit_days",
+      "co2_kg_per_km",
+      "reliability_score"
+    ]
+  },
+  {
+    "Filename": "customer.csv",
+    "FileType": "CSV",
+    "Rows": 30,
+    "Columns": 8,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "customer_id",
+      "customer_name",
+      "industry_segment",
+      "region",
+      "priority_tier",
+      "credit_limit",
+      "contract_type",
+      "since_year"
+    ]
+  },
+  {
+    "Filename": "customers.csv",
+    "FileType": "CSV",
+    "Rows": 200,
+    "Columns": 8,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "customer_id",
+      "customer_name",
+      "customer_type",
+      "credit_terms_days",
+      "primary_freight_type",
+      "account_status",
+      "contract_start_date",
+      "annual_revenue_potential"
+    ]
+  },
+  {
+    "Filename": "delivery_events.csv",
+    "FileType": "CSV",
+    "Rows": 170820,
+    "Columns": 11,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "event_id",
+      "load_id",
+      "trip_id",
+      "event_type",
+      "facility_id",
+      "scheduled_datetime",
+      "actual_datetime",
+      "detention_minutes",
+      "on_time_flag",
+      "location_city",
+      "location_state"
+    ]
+  },
+  {
+    "Filename": "distance.csv",
+    "FileType": "CSV",
+    "Rows": 3782,
+    "Columns": 3,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "Source",
+      "Destination",
+      "Distance(M)"
+    ]
+  },
+  {
+    "Filename": "driver_monthly_metrics.csv",
+    "FileType": "CSV",
+    "Rows": 4464,
+    "Columns": 9,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "driver_id",
+      "month",
+      "trips_completed",
+      "total_miles",
+      "total_revenue",
+      "average_mpg",
+      "total_fuel_gallons",
+      "on_time_delivery_rate",
+      "average_idle_hours"
+    ]
+  },
+  {
+    "Filename": "drivers.csv",
+    "FileType": "CSV",
+    "Rows": 150,
+    "Columns": 12,
+    "MissingValuesTotal": 124,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "driver_id",
+      "first_name",
+      "last_name",
+      "hire_date",
+      "termination_date",
+      "license_number",
+      "license_state",
+      "date_of_birth",
+      "home_terminal",
+      "employment_status",
+      "cdl_class",
+      "years_experience"
+    ]
+  },
+  {
+    "Filename": "dynamic_supply_chain_logistics_dataset.csv",
+    "FileType": "CSV",
+    "Rows": 32065,
+    "Columns": 26,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "timestamp",
+      "vehicle_gps_latitude",
+      "vehicle_gps_longitude",
+      "fuel_consumption_rate",
+      "eta_variation_hours",
+      "traffic_congestion_level",
+      "warehouse_inventory_level",
+      "loading_unloading_time",
+      "handling_equipment_availability",
+      "order_fulfillment_status",
+      "weather_condition_severity",
+      "port_congestion_level",
+      "shipping_costs",
+      "supplier_reliability_score",
+      "lead_time_days",
+      "historical_demand",
+      "iot_temperature",
+      "cargo_condition_status",
+      "route_risk_level",
+      "customs_clearance_time",
+      "driver_behavior_score",
+      "fatigue_monitoring_score",
+      "disruption_likelihood_score",
+      "delay_probability",
+      "risk_classification",
+      "delivery_time_deviation"
+    ]
+  },
+  {
+    "Filename": "facilities.csv",
+    "FileType": "CSV",
+    "Rows": 50,
+    "Columns": 9,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "facility_id",
+      "facility_name",
+      "facility_type",
+      "city",
+      "state",
+      "latitude",
+      "longitude",
+      "dock_doors",
+      "operating_hours"
+    ]
+  },
+  {
+    "Filename": "fuel_purchases.csv",
+    "FileType": "CSV",
+    "Rows": 196442,
+    "Columns": 11,
+    "MissingValuesTotal": 7868,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "fuel_purchase_id",
+      "trip_id",
+      "truck_id",
+      "driver_id",
+      "purchase_date",
+      "location_city",
+      "location_state",
+      "gallons",
+      "price_per_gallon",
+      "total_cost",
+      "fuel_card_number"
+    ]
+  },
+  {
+    "Filename": "inventory_snapshot.csv",
+    "FileType": "CSV",
+    "Rows": 16800,
+    "Columns": 8,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "snapshot_id",
+      "snapshot_date",
+      "warehouse_id",
+      "product_id",
+      "units_on_hand",
+      "reorder_point",
+      "units_reserved",
+      "units_in_transit"
+    ]
+  },
+  {
+    "Filename": "loads.csv",
+    "FileType": "CSV",
+    "Rows": 85410,
+    "Columns": 12,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "load_id",
+      "customer_id",
+      "route_id",
+      "load_date",
+      "load_type",
+      "weight_lbs",
+      "pieces",
+      "revenue",
+      "fuel_surcharge",
+      "accessorial_charges",
+      "load_status",
+      "booking_type"
+    ]
+  },
+  {
+    "Filename": "maintenance_records.csv",
+    "FileType": "CSV",
+    "Rows": 2920,
+    "Columns": 12,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "maintenance_id",
+      "truck_id",
+      "maintenance_date",
+      "maintenance_type",
+      "odometer_reading",
+      "labor_hours",
+      "labor_cost",
+      "parts_cost",
+      "total_cost",
+      "facility_location",
+      "downtime_hours",
+      "service_description"
+    ]
+  },
+  {
+    "Filename": "order_large.csv",
+    "FileType": "CSV",
+    "Rows": 4635,
+    "Columns": 10,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "Order_ID",
+      "Material_ID",
+      "Item_ID",
+      "Source",
+      "Destination",
+      "Available_Time",
+      "Deadline",
+      "Danger_Type",
+      "Area",
+      "Weight"
+    ]
+  },
+  {
+    "Filename": "order_small.csv",
+    "FileType": "CSV",
+    "Rows": 10,
+    "Columns": 10,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "Order_ID",
+      "Material_ID",
+      "Item_ID",
+      "Source",
+      "Destination",
+      "Available_Time",
+      "Deadline",
+      "Danger_Type",
+      "Area",
+      "Weight"
+    ]
+  },
+  {
+    "Filename": "product.csv",
+    "FileType": "CSV",
+    "Rows": 40,
+    "Columns": 9,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "product_id",
+      "product_code",
+      "category",
+      "unit_weight_kg",
+      "standard_cost",
+      "list_price",
+      "abc_class",
+      "hazardous",
+      "shelf_life_days"
+    ]
+  },
+  {
+    "Filename": "production_run.csv",
+    "FileType": "CSV",
+    "Rows": 4000,
+    "Columns": 9,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "production_id",
+      "run_date",
+      "plant_id",
+      "product_id",
+      "units_produced",
+      "defect_count",
+      "downtime_min",
+      "labor_hours",
+      "shift"
+    ]
+  },
+  {
+    "Filename": "purchase_order.csv",
+    "FileType": "CSV",
+    "Rows": 3000,
+    "Columns": 7,
+    "MissingValuesTotal": 193,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "po_id",
+      "order_date",
+      "supplier_id",
+      "promised_date",
+      "actual_delivery_date",
+      "status",
+      "expedited"
+    ]
+  },
+  {
+    "Filename": "purchase_order_line.csv",
+    "FileType": "CSV",
+    "Rows": 7460,
+    "Columns": 7,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "po_line_id",
+      "po_id",
+      "product_id",
+      "qty_ordered",
+      "qty_received",
+      "qty_rejected",
+      "unit_cost"
+    ]
+  },
+  {
+    "Filename": "routes.csv",
+    "FileType": "CSV",
+    "Rows": 58,
+    "Columns": 9,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "route_id",
+      "origin_city",
+      "origin_state",
+      "destination_city",
+      "destination_state",
+      "typical_distance_miles",
+      "base_rate_per_mile",
+      "fuel_surcharge_rate",
+      "typical_transit_days"
+    ]
+  },
+  {
+    "Filename": "safety_incidents.csv",
+    "FileType": "CSV",
+    "Rows": 170,
+    "Columns": 15,
+    "MissingValuesTotal": 2,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "incident_id",
+      "trip_id",
+      "truck_id",
+      "driver_id",
+      "incident_date",
+      "incident_type",
+      "location_city",
+      "location_state",
+      "at_fault_flag",
+      "injury_flag",
+      "vehicle_damage_cost",
+      "cargo_damage_cost",
+      "claim_amount",
+      "preventable_flag",
+      "description"
+    ]
+  },
+  {
+    "Filename": "shipment.csv",
+    "FileType": "CSV",
+    "Rows": 4500,
+    "Columns": 8,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "shipment_id",
+      "ship_date",
+      "warehouse_id",
+      "customer_id",
+      "carrier_id",
+      "delivery_date",
+      "on_time_flag",
+      "damaged_flag"
+    ]
+  },
+  {
+    "Filename": "shipment_line.csv",
+    "FileType": "CSV",
+    "Rows": 9059,
+    "Columns": 6,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "ship_line_id",
+      "shipment_id",
+      "product_id",
+      "qty_shipped",
+      "revenue",
+      "freight_cost"
+    ]
+  },
+  {
+    "Filename": "supplier.csv",
+    "FileType": "CSV",
+    "Rows": 20,
+    "Columns": 10,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "supplier_id",
+      "supplier_name",
+      "country",
+      "tier",
+      "lead_time_days",
+      "quality_rating",
+      "onboard_date",
+      "payment_terms_days",
+      "min_order_value",
+      "is_single_source"
+    ]
+  },
+  {
+    "Filename": "trailers.csv",
+    "FileType": "CSV",
+    "Rows": 180,
+    "Columns": 9,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "trailer_id",
+      "trailer_number",
+      "trailer_type",
+      "length_feet",
+      "model_year",
+      "vin",
+      "acquisition_date",
+      "status",
+      "current_location"
+    ]
+  },
+  {
+    "Filename": "trips.csv",
+    "FileType": "CSV",
+    "Rows": 85410,
+    "Columns": 12,
+    "MissingValuesTotal": 5066,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "trip_id",
+      "load_id",
+      "driver_id",
+      "truck_id",
+      "trailer_id",
+      "dispatch_date",
+      "actual_distance_miles",
+      "actual_duration_hours",
+      "fuel_gallons_used",
+      "average_mpg",
+      "idle_time_hours",
+      "trip_status"
+    ]
+  },
+  {
+    "Filename": "truck_utilization_metrics.csv",
+    "FileType": "CSV",
+    "Rows": 3312,
+    "Columns": 10,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "truck_id",
+      "month",
+      "trips_completed",
+      "total_miles",
+      "total_revenue",
+      "average_mpg",
+      "maintenance_events",
+      "maintenance_cost",
+      "downtime_hours",
+      "utilization_rate"
+    ]
+  },
+  {
+    "Filename": "trucks.csv",
+    "FileType": "CSV",
+    "Rows": 120,
+    "Columns": 11,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "truck_id",
+      "unit_number",
+      "make",
+      "model_year",
+      "vin",
+      "acquisition_date",
+      "acquisition_mileage",
+      "fuel_type",
+      "tank_capacity_gallons",
+      "status",
+      "home_terminal"
+    ]
+  },
+  {
+    "Filename": "warehouse.csv",
+    "FileType": "CSV",
+    "Rows": 4,
+    "Columns": 6,
+    "MissingValuesTotal": 0,
+    "DuplicateRows": 0,
+    "ColumnNames": [
+      "warehouse_id",
+      "warehouse_name",
+      "region",
+      "capacity_units",
+      "operating_cost_monthly",
+      "automation_level"
+    ]
+  }
+]

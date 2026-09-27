@@ -1,0 +1,12 @@
+route_id,origin_city,origin_state,destination_city,destination_state,typical_distance_miles,base_rate_per_mile,fuel_surcharge_rate,typical_transit_days
+GLOB_RTE001,Rotterdam,ZH,Frankfurt,HE,275,2.1,0.24,1
+GLOB_RTE002,Frankfurt,HE,Milan,LOM,415,2.25,0.26,1
+GLOB_RTE003,Paris,IDF,Madrid,MD,790,2.05,0.22,2
+GLOB_RTE004,Rotterdam,ZH,Warsaw,MZ,745,1.95,0.21,2
+GLOB_RTE005,Shanghai,SH,Shenzhen,GD,750,1.8,0.19,2
+GLOB_RTE006,Tokyo,13,Seoul,11,715,2.4,0.28,2
+GLOB_RTE007,Singapore,SG,Bangkok,10,895,1.85,0.2,3
+GLOB_RTE008,Dubai,DU,Riyadh,01,620,1.9,0.18,2
+GLOB_RTE009,London,ENG,Rotterdam,ZH,210,2.3,0.25,1
+GLOB_RTE010,Toronto,ON,Chicago,IL,515,2.15,0.22,1
+GLOB_RTE011,Mexico City,CMX,Houston,TX,930,1.85,0.2,3

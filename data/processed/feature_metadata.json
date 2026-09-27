@@ -1,0 +1,43 @@
+{
+  "categorical_features": [
+    "origin_city",
+    "origin_state",
+    "destination_city",
+    "destination_state",
+    "truck_make",
+    "truck_home_terminal",
+    "trailer_type",
+    "booking_type",
+    "current_load_type"
+  ],
+  "numerical_features": [
+    "dispatch_month",
+    "dispatch_dayofweek",
+    "dispatch_quarter",
+    "is_weekend",
+    "truck_model_year",
+    "truck_tank_capacity",
+    "trailer_length",
+    "driver_years_exp",
+    "current_weight_lbs",
+    "current_pieces",
+    "current_revenue",
+    "current_load_utilization",
+    "route_distance",
+    "route_base_rate",
+    "route_fuel_surcharge_rate",
+    "route_transit_days",
+    "dest_outbound_market_volume",
+    "is_heading_home",
+    "route_hist_empty_rate",
+    "truck_hist_empty_rate"
+  ],
+  "target_col": "empty_return_target",
+  "metadata_cols": [
+    "trip_id",
+    "truck_id",
+    "dispatch_date",
+    "next_weight_lbs",
+    "next_return_utilization"
+  ]
+}

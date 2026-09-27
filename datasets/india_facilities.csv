@@ -1,0 +1,16 @@
+facility_id,facility_name,facility_type,city,state,latitude,longitude,dock_doors,operating_hours
+IND_FAC001,Mumbai Logistics Hub,Cross-Dock,Mumbai,MH,19.076,72.8777,110,24/7
+IND_FAC002,Delhi NCR Freight Hub,Distribution Center,Delhi,DL,28.6139,77.209,140,24/7
+IND_FAC003,Bengaluru Logistics Park,Distribution Center,Bangalore,KA,12.9716,77.5946,95,24/7
+IND_FAC004,Chennai Port Depot,Terminal,Chennai,TN,13.0827,80.2707,120,24/7
+IND_FAC005,Kolkata Cargo Center,Cross-Dock,Kolkata,WB,22.5726,88.3639,85,6AM-10PM
+IND_FAC006,Hyderabad Inland Hub,Terminal,Hyderabad,TG,17.385,78.4867,105,24/7
+IND_FAC007,Pune Freight Terminal,Distribution Center,Pune,MH,18.5204,73.8567,75,24/7
+IND_FAC008,Ahmedabad Logistics Yard,Cross-Dock,Ahmedabad,GJ,23.0225,72.5714,90,7AM-7PM
+IND_FAC009,Jaipur Multimodal Depot,Warehouse,Jaipur,RJ,26.9124,75.7873,60,8AM-5PM
+IND_FAC010,Nagpur Central India Hub,Cross-Dock,Nagpur,MH,21.1458,79.0882,130,24/7
+IND_FAC011,Kochi Port Logistics,Terminal,Kochi,KL,9.9312,76.2673,70,24/7
+IND_FAC012,Coimbatore Transport Hub,Distribution Center,Coimbatore,TN,11.0168,76.9558,65,8AM-5PM
+IND_FAC013,Lucknow Logistics Facility,Warehouse,Lucknow,UP,26.8467,80.9462,80,6AM-10PM
+IND_FAC014,Visakhapatnam Logistics,Terminal,Visakhapatnam,AP,17.6868,83.2185,100,24/7
+IND_FAC015,Chandigarh Cargo Terminal,Cross-Dock,Chandigarh,PB,30.7333,76.7794,55,7AM-7PM

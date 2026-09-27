@@ -1,0 +1,16 @@
+route_id,origin_city,origin_state,destination_city,destination_state,typical_distance_miles,base_rate_per_mile,fuel_surcharge_rate,typical_transit_days
+IND_RTE001,Mumbai,MH,Delhi,DL,881,1.85,0.22,3
+IND_RTE002,Mumbai,MH,Bangalore,KA,611,1.9,0.2,2
+IND_RTE003,Delhi,DL,Bangalore,KA,1352,2.1,0.25,4
+IND_RTE004,Bangalore,KA,Chennai,TN,215,1.65,0.18,1
+IND_RTE005,Chennai,TN,Visakhapatnam,AP,497,1.75,0.19,2
+IND_RTE006,Visakhapatnam,AP,Kolkata,WB,547,1.8,0.21,2
+IND_RTE007,Delhi,DL,Kolkata,WB,902,1.95,0.23,3
+IND_RTE008,Mumbai,MH,Pune,MH,92,1.5,0.15,1
+IND_RTE009,Ahmedabad,GJ,Mumbai,MH,325,1.7,0.18,1
+IND_RTE010,Hyderabad,TG,Bangalore,KA,353,1.75,0.19,1
+IND_RTE011,Delhi,DL,Jaipur,RJ,174,1.55,0.16,1
+IND_RTE012,Pune,MH,Nagpur,MH,441,1.8,0.2,2
+IND_RTE013,Nagpur,MH,Hyderabad,TG,310,1.68,0.18,1
+IND_RTE014,Delhi,UP,Lucknow,UP,330,1.65,0.17,1
+IND_RTE015,Bangalore,KA,Kochi,KL,340,1.72,0.19,1

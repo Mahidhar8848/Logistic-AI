@@ -1,0 +1,213 @@
+{
+  "best_model": "Gradient Boosting",
+  "best_validation_roc_auc": 0.5071,
+  "all_model_results": {
+    "Logistic Regression": {
+      "validation": {
+        "accuracy": 0.5024,
+        "precision": 0.358,
+        "recall": 0.4872,
+        "f1_score": 0.4127,
+        "roc_auc": 0.4987,
+        "pr_auc": 0.3593,
+        "confusion_matrix": [
+          [
+            4109,
+            3935
+          ],
+          [
+            2309,
+            2194
+          ]
+        ]
+      },
+      "test": {
+        "accuracy": 0.4839,
+        "precision": 0.3493,
+        "recall": 0.5331,
+        "f1_score": 0.4221,
+        "roc_auc": 0.4902,
+        "pr_auc": 0.3478,
+        "confusion_matrix": [
+          [
+            3706,
+            4405
+          ],
+          [
+            2071,
+            2365
+          ]
+        ]
+      }
+    },
+    "Decision Tree": {
+      "validation": {
+        "accuracy": 0.5073,
+        "precision": 0.3589,
+        "recall": 0.4744,
+        "f1_score": 0.4086,
+        "roc_auc": 0.4958,
+        "pr_auc": 0.36,
+        "confusion_matrix": [
+          [
+            4229,
+            3815
+          ],
+          [
+            2367,
+            2136
+          ]
+        ]
+      },
+      "test": {
+        "accuracy": 0.5008,
+        "precision": 0.3483,
+        "recall": 0.4732,
+        "f1_score": 0.4013,
+        "roc_auc": 0.4987,
+        "pr_auc": 0.357,
+        "confusion_matrix": [
+          [
+            4184,
+            3927
+          ],
+          [
+            2337,
+            2099
+          ]
+        ]
+      }
+    },
+    "Random Forest": {
+      "validation": {
+        "accuracy": 0.5726,
+        "precision": 0.3543,
+        "recall": 0.2318,
+        "f1_score": 0.2803,
+        "roc_auc": 0.4913,
+        "pr_auc": 0.3529,
+        "confusion_matrix": [
+          [
+            6141,
+            1903
+          ],
+          [
+            3459,
+            1044
+          ]
+        ]
+      },
+      "test": {
+        "accuracy": 0.5617,
+        "precision": 0.3591,
+        "recall": 0.3052,
+        "f1_score": 0.33,
+        "roc_auc": 0.5058,
+        "pr_auc": 0.3561,
+        "confusion_matrix": [
+          [
+            5694,
+            2417
+          ],
+          [
+            3082,
+            1354
+          ]
+        ]
+      }
+    },
+    "Gradient Boosting": {
+      "validation": {
+        "accuracy": 0.6414,
+        "precision": 0.5588,
+        "recall": 0.0042,
+        "f1_score": 0.0084,
+        "roc_auc": 0.5071,
+        "pr_auc": 0.3626,
+        "confusion_matrix": [
+          [
+            8029,
+            15
+          ],
+          [
+            4484,
+            19
+          ]
+        ]
+      },
+      "test": {
+        "accuracy": 0.6462,
+        "precision": 0.4545,
+        "recall": 0.0034,
+        "f1_score": 0.0067,
+        "roc_auc": 0.4949,
+        "pr_auc": 0.3513,
+        "confusion_matrix": [
+          [
+            8093,
+            18
+          ],
+          [
+            4421,
+            15
+          ]
+        ]
+      }
+    },
+    "HistGradientBoosting": {
+      "validation": {
+        "accuracy": 0.4754,
+        "precision": 0.355,
+        "recall": 0.5654,
+        "f1_score": 0.4362,
+        "roc_auc": 0.4977,
+        "pr_auc": 0.3604,
+        "confusion_matrix": [
+          [
+            3419,
+            4625
+          ],
+          [
+            1957,
+            2546
+          ]
+        ]
+      },
+      "test": {
+        "accuracy": 0.4779,
+        "precision": 0.3547,
+        "recall": 0.5821,
+        "f1_score": 0.4408,
+        "roc_auc": 0.501,
+        "pr_auc": 0.355,
+        "confusion_matrix": [
+          [
+            3414,
+            4697
+          ],
+          [
+            1854,
+            2582
+          ]
+        ]
+      }
+    }
+  },
+  "top_15_feature_importances": {
+    "current_revenue": 0.137344,
+    "truck_hist_empty_rate": 0.135177,
+    "route_hist_empty_rate": 0.116225,
+    "current_weight_lbs": 0.072859,
+    "current_load_utilization": 0.068434,
+    "current_pieces": 0.061697,
+    "driver_years_exp": 0.04905,
+    "route_base_rate": 0.032362,
+    "dispatch_dayofweek": 0.024103,
+    "dispatch_month": 0.023216,
+    "route_distance": 0.018336,
+    "route_fuel_surcharge_rate": 0.014568,
+    "truck_model_year": 0.013641,
+    "dest_outbound_market_volume": 0.012952,
+    "truck_home_terminal_Portland": 0.007038
+  }
+}

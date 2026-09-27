@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Logistics — Global Predictive Empty-Return Platform</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+  <!-- Leaflet.js Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet PolylineDecorator -->
+  <script src="https://unpkg.com/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.js"></script>
+  <style>
+    /* Map Page Premium Overrides */
+    #page-visualization .card-section { padding: 0; overflow: hidden; border-radius: 18px; }
+    #map-toolbar {
+      display: flex; align-items: center; gap: 10px; padding: 14px 22px;
+      background: rgba(9, 13, 22, 0.94); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-wrap: wrap; backdrop-filter: blur(12px);
+    }
+    #map-toolbar .map-toolbar-title { font-size: 15px; font-weight: 700; flex: 1; display: flex; align-items: center; gap: 8px; }
+    .map-layer-btn {
+      background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94A3B8; padding: 7px 15px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: all 0.25s; font-family: 'Outfit', sans-serif;
+    }
+    .map-layer-btn:hover, .map-layer-btn.active {
+      background: linear-gradient(135deg, #4FACFE, #00F2FE); color: #050B14; border-color: transparent; font-weight: 700;
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+    }
+    #route-map { height: 560px; width: 100%; }
+    #map-legend {
+      position: absolute; bottom: 25px; left: 20px; z-index: 1000;
+      background: rgba(9, 13, 22, 0.9); border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px; padding: 16px 20px; font-size: 13px;
+      backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .legend-line { width: 24px; height: 3px; flex-shrink: 0; border-radius: 2px; }
+    #map-status-bar {
+      padding: 10px 22px; background: rgba(9, 13, 22, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px; color: #64748B; display: flex; justify-content: space-between; gap: 20px;
+    }
+    .leaflet-container { background: #070B14; }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <div class="sidebar">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
+      <div>
+        <div class="brand-title">AI LOGISTICS</div>
+        <div class="brand-subtitle">Global Predictive Logistics</div>
+      </div>
+    </div>
+
+    <ul class="nav-list">
+      <li class="nav-item active" data-page="overview">
+        <i class="fa-solid fa-chart-pie"></i> Executive Overview
+      </li>
+      <li class="nav-item" data-page="prediction">
+        <i class="fa-solid fa-brain"></i> Empty Return Predictor
+      </li>
+      <li class="nav-item" data-page="matching">
+        <i class="fa-solid fa-boxes-packing"></i> Load Matching & MIP
+      </li>
+      <li class="nav-item" data-page="visualization">
+        <i class="fa-solid fa-route"></i> World Satellite Map
+      </li>
+      <li class="nav-item" data-page="performance">
+        <i class="fa-solid fa-gauge-high"></i> ML Performance & SHAP
+      </li>
+      <li class="nav-item" data-page="impact">
+        <i class="fa-solid fa-leaf"></i> Fleet Sustainability ROI
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="status-dot"></div>
+      <div>
+        <div style="font-weight: 600; color: var(--text-main);">AI Engine Online</div>
+        <div style="font-size: 11px;">Gradient Boosting v2.4</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <div class="main-content">
+    <div class="header">
+      <div class="header-title" id="page-header-title"><i class="fa-solid fa-globe" style="color: var(--primary);"></i> Executive Fleet Overview</div>
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <div class="header-badge"><i class="fa-solid fa-database"></i> 89 Global Logistics Hubs Connected</div>
+      </div>
+    </div>
+
+    <div class="page-container">
+
+      <!-- PAGE 1: OVERVIEW -->
+      <div class="page active" id="page-overview">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-label">Active Global Fleet</div>
+              <div class="kpi-icon"><i class="fa-solid fa-truck"></i></div>
+            </div>
+            <div class="kpi-value" id="kpi-vehicles">--</div>
+            <div class="kpi-sub"><i class="fa-solid fa-check-circle" style="color:var(--success);"></i> Class 8 & Heavy Duty Commercial</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-label">Total Dispatches Analyzed</div>
+              <div class="kpi-icon"><i class="fa-solid fa-route"></i></div>
+            </div>
+            <div class="kpi-value" id="kpi-trips">--</div>
+            <div class="kpi-sub"><i class="fa-solid fa-clock-rotate-left"></i> Historical & Real-time telemetry</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-label">Baseline Empty Return Rate</div>
+              <div class="kpi-icon" style="background:rgba(255,51,102,0.1);color:var(--danger);"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            </div>
+            <div class="kpi-value" id="kpi-empty-rate" style="color: var(--danger);">--</div>
+            <div class="kpi-sub"><i class="fa-solid fa-arrow-down" style="color:var(--danger);"></i> Target: Reduce to &lt; 15%</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-label">Avg Capacity Utilization</div>
+              <div class="kpi-icon"><i class="fa-solid fa-weight-hanging"></i></div>
+            </div>
+            <div class="kpi-value" id="kpi-utilization">--</div>
+            <div class="kpi-sub"><i class="fa-solid fa-chart-line" style="color:var(--success);"></i> Payload capacity index</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-label">High-Risk Empty Dispatches</div>
+              <div class="kpi-icon" style="background:rgba(255,179,0,0.1);color:var(--warning);"><i class="fa-solid fa-flag"></i></div>
+            </div>
+            <div class="kpi-value" id="kpi-high-risk" style="color: var(--warning);">--</div>
+            <div class="kpi-sub"><i class="fa-solid fa-shield-halved"></i> Actionable return load candidates</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-label">Quantified Cost Savings</div>
+              <div class="kpi-icon" style="background:rgba(0,230,118,0.1);color:var(--success);"><i class="fa-solid fa-piggy-bank"></i></div>
+            </div>
+            <div class="kpi-value" id="kpi-savings" style="color: var(--success);">--</div>
+            <div class="kpi-sub"><i class="fa-solid fa-leaf" style="color:var(--success);"></i> Fuel saved + backhaul margin</div>
+          </div>
+        </div>
+
+        <div class="card-section">
+          <div class="section-header">
+            <div>
+              <div class="section-title"><i class="fa-solid fa-chart-pie" style="color:var(--primary);"></i> Fleet Return Journey Payload & Risk Distribution</div>
+              <div class="section-subtitle">Real-time breakdown of trip outcomes across global freight corridors</div>
+            </div>
+          </div>
+          <div id="overview-chart" style="height: 360px;"></div>
+        </div>
+      </div>
+
+      <!-- PAGE 2: EMPTY RETURN PREDICTION -->
+      <div class="page" id="page-prediction">
+        <div class="card-section">
+          <div class="section-header">
+            <div>
+              <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--primary);"></i> Predict Return Journey Risk Before Delivery Completion</div>
+              <div class="section-subtitle">Evaluates trip telemetry, destination market volume, equipment type, and historical backhaul rates</div>
+            </div>
+          </div>
+
+          <form id="prediction-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Origin City</label>
+                <select class="form-control" id="pred-origin">
+                  <optgroup label="🇺🇸 North America">
+                    <option value="Chicago">Chicago, IL (US)</option>
+                    <option value="Atlanta">Atlanta, GA (US)</option>
+                    <option value="Houston">Houston, TX (US)</option>
+                    <option value="New York">New York, NY (US)</option>
+                    <option value="Los Angeles">Los Angeles, CA (US)</option>
+                    <option value="Toronto">Toronto, ON (Canada)</option>
+                  </optgroup>
+                  <optgroup label="🇪🇺 Europe">
+                    <option value="Rotterdam">Rotterdam (Netherlands)</option>
+                    <option value="Frankfurt">Frankfurt (Germany)</option>
+                    <option value="London">London (UK)</option>
+                    <option value="Paris">Paris (France)</option>
+                    <option value="Milan">Milan (Italy)</option>
+                  </optgroup>
+                  <optgroup label="🇮🇳 India Freight Corridors">
+                    <option value="Mumbai">Mumbai, MH</option>
+                    <option value="Delhi">Delhi, DL</option>
+                    <option value="Bangalore">Bangalore, KA</option>
+                    <option value="Chennai">Chennai, TN</option>
+                    <option value="Kolkata">Kolkata, WB</option>
+                  </optgroup>
+                  <optgroup label="🌏 Asia Pacific & Middle East">
+                    <option value="Shanghai">Shanghai (China)</option>
+                    <option value="Singapore">Singapore (SG)</option>
+                    <option value="Dubai">Dubai (UAE)</option>
+                    <option value="Tokyo">Tokyo (Japan)</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label><i class="fa-solid fa-flag-checkered" style="color:var(--danger);"></i> Destination City</label>
+                <select class="form-control" id="pred-dest">
+                  <optgroup label="🇺🇸 North America">
+                    <option value="Las Vegas">Las Vegas, NV (US)</option>
+                    <option value="Dallas">Dallas, TX (US)</option>
+                    <option value="Seattle">Seattle, WA (US)</option>
+                    <option value="Miami">Miami, FL (US)</option>
+                  </optgroup>
+                  <optgroup label="🇪🇺 Europe">
+                    <option value="Frankfurt">Frankfurt (Germany)</option>
+                    <option value="Milan">Milan (Italy)</option>
+                    <option value="Madrid">Madrid (Spain)</option>
+                    <option value="Warsaw">Warsaw (Poland)</option>
+                  </optgroup>
+                  <optgroup label="🇮🇳 India Freight Corridors">
+                    <option value="Delhi">Delhi NCR</option>
+                    <option value="Bangalore">Bangalore, KA</option>
+                    <option value="Jaipur">Jaipur, RJ</option>
+                    <option value="Pune">Pune, MH</option>
+                  </optgroup>
+                  <optgroup label="🌏 Asia Pacific & Middle East">
+                    <option value="Shenzhen">Shenzhen (China)</option>
+                    <option value="Riyadh">Riyadh (Saudi Arabia)</option>
+                    <option value="Seoul">Seoul (South Korea)</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label><i class="fa-solid fa-file-contract"></i> Booking Contract Type</label>
+                <select class="form-control" id="pred-booking">
+                  <option value="Spot">Spot Freight (High Return Variance)</option>
+                  <option value="Dedicated">Dedicated Fleet Contract</option>
+                  <option value="Contract">Annual Contract Freight</option>
+                  <option value="FTL">Full Truck Load (FTL)</option>
+                  <option value="PTL">Part Truck Load (PTL)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label><i class="fa-solid fa-truck-ramp-box"></i> Equipment & Trailer Type</label>
+                <select class="form-control" id="pred-load-type">
+                  <option value="Dry Van">53' Dry Van Trailer</option>
+                  <option value="Refrigerated">Temperature Controlled Reefer</option>
+                  <option value="Container Trailer">Intermodal Container (20'/40')</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label><i class="fa-solid fa-weight-scale"></i> Current Outbound Weight (lbs)</label>
+                <input type="number" class="form-control" id="pred-weight" value="14500">
+              </div>
+
+              <div class="form-group">
+                <label><i class="fa-solid fa-house-user"></i> Truck Home Depot / Terminal</label>
+                <select class="form-control" id="pred-terminal">
+                  <option value="Omaha">Omaha Terminal (US)</option>
+                  <option value="Chicago">Chicago Hub (US)</option>
+                  <option value="Rotterdam">Rotterdam Depot (Europe)</option>
+                  <option value="Mumbai">Mumbai Logistics Hub (India)</option>
+                  <option value="Shanghai">Shanghai Port Hub (Asia)</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary"><i class="fa-solid fa-brain"></i> Compute Empty Return Probability</button>
+          </form>
+
+          <div id="prediction-result" class="prediction-box" style="display: none;">
+            <div>
+              <div style="font-size: 12px; color: var(--text-muted); font-weight:700; letter-spacing:1px; margin-bottom: 6px;">PREDICTED RETURN UNCERTAINTY</div>
+              <div class="prob-meter">
+                <div class="prob-value" id="pred-prob-val">--%</div>
+                <div class="risk-badge" id="pred-risk-badge">--</div>
+              </div>
+            </div>
+            <div style="max-width: 440px;">
+              <div style="font-size: 13px; color: var(--text-muted); font-weight:600; margin-bottom: 8px;"><i class="fa-solid fa-magnifying-glass-chart" style="color:var(--primary);"></i> KEY RISK DRIVERS IDENTIFIED:</div>
+              <ul id="pred-drivers-list" style="font-size: 13px; color: var(--text-main); padding-left: 20px; line-height: 1.6;"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 3: RETURN LOAD MATCHING -->
+      <div class="page" id="page-matching">
+        <div class="card-section">
+          <div class="section-header">
+            <div>
+              <div class="section-title"><i class="fa-solid fa-boxes-packing" style="color:var(--primary);"></i> Return Load Candidate Discovery & MIP Optimization</div>
+              <div class="section-subtitle">Filters infeasible shipments and ranks compatible return loads by compatibility score, detour distance, and revenue</div>
+            </div>
+            <button class="btn-primary" id="btn-run-matching"><i class="fa-solid fa-rotate"></i> Find & Optimize Matches</button>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="custom-table" id="matching-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Shipment ID</th>
+                  <th>Pickup Hub</th>
+                  <th>Drop Hub</th>
+                  <th>Payload Weight</th>
+                  <th>Route Compat %</th>
+                  <th>Detour (mi)</th>
+                  <th>Expected Util %</th>
+                  <th>Matching Score</th>
+                </tr>
+              </thead>
+              <tbody id="matching-tbody">
+                <tr><td colspan="9" style="text-align: center; color: var(--text-dim); padding: 30px;">Click 'Find & Optimize Matches' to run multi-attribute MIP matching.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 4: ROUTE VISUALIZATION -->
+      <div class="page" id="page-visualization">
+        <div class="card-section" style="position:relative;">
+
+          <!-- Map Control Toolbar -->
+          <div id="map-toolbar">
+            <div class="map-toolbar-title"><i class="fa-solid fa-satellite" style="color:var(--primary);"></i> Global Satellite Route HUD</div>
+            
+            <div style="display:flex; gap:6px; margin-right:12px; flex-wrap:wrap;">
+              <button class="map-layer-btn" onclick="focusRegion('global')">🌐 Global View</button>
+              <button class="map-layer-btn" onclick="focusRegion('us')">🇺🇸 North America</button>
+              <button class="map-layer-btn" onclick="focusRegion('europe')">🇪🇺 Europe</button>
+              <button class="map-layer-btn" onclick="focusRegion('india')">🇮🇳 India</button>
+              <button class="map-layer-btn" onclick="focusRegion('asia')">🌏 Asia Pacific</button>
+              <button class="map-layer-btn" onclick="focusRegion('middle_east')">🌍 Middle East</button>
+            </div>
+
+            <button class="map-layer-btn active" id="btn-layer-satellite" onclick="switchLayer('satellite')">🛰 Satellite</button>
+            <button class="map-layer-btn" id="btn-layer-hybrid" onclick="switchLayer('hybrid')">🌐 Hybrid</button>
+            <button class="map-layer-btn" id="btn-layer-street" onclick="switchLayer('street')">🗺 Street</button>
+            <button class="map-layer-btn" id="btn-layer-dark" onclick="switchLayer('dark')">🌑 Dark</button>
+          </div>
+
+          <!-- Satellite Canvas -->
+          <div style="position:relative;">
+            <div id="route-map"></div>
+
+            <!-- Legend Overlay -->
+            <div id="map-legend">
+              <div style="font-size:11px;color:#64748B;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:700;">Global Map Legend</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#FF3366;"></div> Active Origin Dispatch</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#FF3366;opacity:0.5;"></div> Outbound Corridor</div>
+              <div class="legend-item"><div class="legend-line" style="background:#00E676;"></div> Optimized Return Route</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#00F2FE;"></div> International Freight Hub</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#FFB300;"></div> Recommended Backhaul Pickup</div>
+            </div>
+          </div>
+
+          <!-- Map Status Bar -->
+          <div id="map-status-bar">
+            <span id="map-status-routes"><i class="fa-solid fa-spinner fa-spin"></i> Initializing global route networks...</span>
+            <span id="map-status-hubs">89 connected global facilities</span>
+            <span>Data source: facilities.csv · routes.csv</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PAGE 5: MODEL PERFORMANCE -->
+      <div class="page" id="page-performance">
+        <div class="card-section">
+          <div class="section-header">
+            <div>
+              <div class="section-title"><i class="fa-solid fa-gauge-high" style="color:var(--primary);"></i> ML Model Comparison & Evaluation Metrics</div>
+              <div class="section-subtitle">Chronological 80/20 train/test split to prevent temporal data leakage</div>
+            </div>
+          </div>
+
+          <table class="custom-table" style="margin-bottom: 24px;">
+            <thead>
+              <tr>
+                <th>Model Candidate</th>
+                <th>Val ROC-AUC</th>
+                <th>Test ROC-AUC</th>
+                <th>Accuracy</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1-Score</th>
+              </tr>
+            </thead>
+            <tbody id="metrics-tbody">
+              <tr><td colspan="7" style="text-align: center; color: var(--text-dim);">Loading model evaluation metrics...</td></tr>
+            </tbody>
+          </table>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 20px;">
+            <div>
+              <div style="font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px;">Test Set Confusion Matrix (Best Model)</div>
+              <div id="confusion-matrix-chart" style="height: 280px;"></div>
+            </div>
+            <div>
+              <div style="font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px;">Top Feature Importances</div>
+              <div id="feature-importance-chart" style="height: 280px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 6: BUSINESS IMPACT -->
+      <div class="page" id="page-impact">
+        <div class="card-section">
+          <div class="section-header">
+            <div>
+              <div class="section-title"><i class="fa-solid fa-leaf" style="color:var(--success);"></i> Quantified Sustainability & Fleet Financial Impact</div>
+              <div class="section-subtitle">Direct savings calculated from operational empty-miles reduction</div>
+            </div>
+          </div>
+
+          <div class="impact-grid">
+            <div class="impact-card">
+              <i class="fa-solid fa-road" style="font-size: 28px; color: var(--primary);"></i>
+              <div class="impact-number" id="imp-miles">--</div>
+              <div style="font-weight: 600; color: var(--text-main);">Empty Miles Avoided</div>
+              <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">Through automated return load matching</div>
+            </div>
+
+            <div class="impact-card">
+              <i class="fa-solid fa-gauge-simple-high" style="font-size: 28px; color: var(--warning);"></i>
+              <div class="impact-number" id="imp-util" style="color: var(--warning);">+38.5%</div>
+              <div style="font-weight: 600; color: var(--text-main);">Backhaul Capacity Uplift</div>
+              <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">Average payload utilization improvement</div>
+            </div>
+
+            <div class="impact-card">
+              <i class="fa-solid fa-gas-pump" style="font-size: 28px; color: var(--accent-pink);"></i>
+              <div class="impact-number" id="imp-fuel" style="color: var(--accent-pink);">--</div>
+              <div style="font-weight: 600; color: var(--text-main);">Diesel Fuel Saved</div>
+              <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">Based on 6.8 MPG average heavy truck efficiency</div>
+            </div>
+
+            <div class="impact-card">
+              <i class="fa-solid fa-smog" style="font-size: 28px; color: var(--success);"></i>
+              <div class="impact-number" id="imp-co2">--</div>
+              <div style="font-weight: 600; color: var(--text-main);">CO₂ Emissions Avoided</div>
+              <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">10.18 kg CO₂ reduced per gallon saved</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

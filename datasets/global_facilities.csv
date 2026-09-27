@@ -1,0 +1,25 @@
+facility_id,facility_name,facility_type,city,state,latitude,longitude,dock_doors,operating_hours
+EUR_FAC001,Rotterdam Port Logistics Hub,Seaport / Terminal,Rotterdam,ZH,51.9244,4.4777,220,24/7
+EUR_FAC002,Frankfurt CargoCity South,Airport Freight Hub,Frankfurt,HE,50.1109,8.6821,180,24/7
+EUR_FAC003,London Thamesport Gateway,Cross-Dock,London,ENG,51.5074,-0.1278,150,24/7
+EUR_FAC004,Antwerp Container Terminal,Seaport / Terminal,Antwerp,VAN,51.2194,4.4025,195,24/7
+EUR_FAC005,Paris Logistics Park (Roissy),Distribution Center,Paris,IDF,48.8566,2.3522,160,24/7
+EUR_FAC006,Milan Freight Village (Interporto),Cross-Dock,Milan,LOM,45.4642,9.19,130,24/7
+EUR_FAC007,Madrid Logistics Center (Coslada),Distribution Center,Madrid,MD,40.4168,-3.7038,140,24/7
+EUR_FAC008,Warsaw Intermodal Logistics Park,Cross-Dock,Warsaw,MZ,52.2297,21.0122,125,24/7
+EUR_FAC009,Istanbul Ambarli Logistics Port,Seaport / Terminal,Istanbul,34,41.0082,28.9784,175,24/7
+ASIA_FAC001,Shanghai Yangshan Port Terminal,Mega Port Terminal,Shanghai,SH,31.2304,121.4737,350,24/7
+ASIA_FAC002,Shenzhen Yantian Logistics Hub,Seaport Terminal,Shenzhen,GD,22.5431,114.0579,300,24/7
+ASIA_FAC003,Tokyo Bay Cargo Logistics Depot,Distribution Center,Tokyo,13,35.6762,139.6503,210,24/7
+ASIA_FAC004,Singapore Changi Air Freight Hub,Air & Sea Terminal,Singapore,SG,1.3521,103.8198,280,24/7
+ASIA_FAC005,Sydney Port Botany Logistics Hub,Cross-Dock,Sydney,NSW,-33.8688,151.2093,140,24/7
+ASIA_FAC006,Seoul Incheon Logistics Complex,Distribution Center,Seoul,11,37.5665,126.978,190,24/7
+ASIA_FAC007,Bangkok Eastern Seaboard Depot,Cross-Dock,Bangkok,10,13.7563,100.5018,115,24/7
+MEA_FAC001,Dubai Jebel Ali Free Zone (JAFZA),Global Mega Logistics Hub,Dubai,DU,25.2048,55.2708,400,24/7
+MEA_FAC002,Riyadh Dry Port & Logistics Park,Inland Container Depot,Riyadh,01,24.7136,46.6753,160,24/7
+MEA_FAC003,Cairo Sokhna Port Logistics Center,Seaport / Terminal,Cairo,C,30.0444,31.2357,120,24/7
+MEA_FAC004,Johannesburg City Deep Container Depot,Inland Container Depot,Johannesburg,GP,-26.2041,28.0473,110,24/7
+LAT_FAC001,São Paulo Interlagos Logistics Hub,Distribution Center,São Paulo,SP,-23.5505,-46.6333,170,24/7
+LAT_FAC002,Mexico City Pantaco Intermodal Terminal,Inland Container Depot,Mexico City,CMX,19.4326,-99.1332,150,24/7
+CAN_FAC001,Toronto Brampton Logistics Hub,Distribution Center,Toronto,ON,43.6532,-79.3832,165,24/7
+CAN_FAC002,Vancouver Roberts Bank Terminal,Seaport / Terminal,Vancouver,BC,49.2827,-123.1207,145,24/7
