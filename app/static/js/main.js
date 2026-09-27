@@ -438,15 +438,23 @@ async function initRouteMap() {
     allCityCoords = data.city_coordinates || {};
     allRoutes     = data.available_routes  || [];
 
-    // 1. All global hub cities – pulsing markers
+    // 1. All global hub cities – pulsing markers with permanent City & State labels
     var hubCount = 0;
     Object.keys(allCityCoords).forEach(function(city) {
       var info = allCityCoords[city];
+      var stateLabel = info.state ? (city + ', ' + info.state) : city;
+      
       var marker = L.marker([info.lat, info.lon], { icon: buildPulsingIcon('#00F2FE', '#0B2240') })
+        .bindTooltip(stateLabel, {
+          permanent: true,
+          direction: 'top',
+          offset: [0, -10],
+          className: 'map-city-label'
+        })
         .bindPopup(
           '<div style="font-family:Outfit,sans-serif;min-width:180px;">' +
           '<b style="color:#00F2FE;font-size:14px;">📦 ' + info.facility_name + '</b><br>' +
-          '<span style="color:#94A3B8;">' + city + '</span><br>' +
+          '<span style="color:#94A3B8;">' + stateLabel + '</span><br>' +
           '<span style="color:#64748B;font-size:11px;">Lat: ' + info.lat.toFixed(4) + ' | Lon: ' + info.lon.toFixed(4) + '</span>' +
           '</div>'
         );

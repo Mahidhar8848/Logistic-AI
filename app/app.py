@@ -143,23 +143,30 @@ def get_cities():
 
 @app.route("/api/routes", methods=["GET"])
 def get_routes():
-    """Returns routes and facility coordinates for map visualization."""
+    """Returns routes and facility coordinates with state info for map visualization."""
     routes_df = loader.load_dataset("routes.csv")
     facilities_df = loader.load_dataset("facilities.csv")
     
     coords = {}
     for _, row in facilities_df.iterrows():
-        coords[row['city']] = {
-            "lat": float(row['latitude']),
-            "lon": float(row['longitude']),
-            "facility_name": str(row['facility_name'])
-        }
+        c_name = str(row['city']).strip()
+        s_val = str(row['state']).strip() if pd.notna(row['state']) and str(row['state']) != 'nan' else ""
+        if c_name not in coords or (s_val and not coords[c_name].get('state')):
+            coords[c_name] = {
+                "lat": float(row['latitude']),
+                "lon": float(row['longitude']),
+                "facility_name": str(row['facility_name']),
+                "state": s_val
+            }
         
     routes_list = routes_df.to_dict(orient="records")
     return jsonify({
         "city_coordinates": coords,
         "available_routes": routes_list
     })
+
+
+
 
 if __name__ == "__main__":
     print(f"Starting AI Logistics Server on http://localhost:5055 (LAN: http://192.168.1.5:5055)...")
