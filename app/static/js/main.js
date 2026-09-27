@@ -1,4 +1,4 @@
-// AI Logistics Main Dashboard JavaScript — Global Edition
+// AI Logistics Main Dashboard JavaScript — Multi-Theme & Interactive Edition
 document.addEventListener("DOMContentLoaded", () => {
   initNavigation();
   loadOverviewData();
@@ -7,7 +7,23 @@ document.addEventListener("DOMContentLoaded", () => {
   initMatchingSystem();
   initModelPerformance();
   initRouteMap();
+  updateROISimulator();
 });
+
+// Theme Switcher Handler
+window.setTheme = function(themeName) {
+  document.documentElement.setAttribute("data-theme", themeName);
+  document.querySelectorAll(".theme-btn").forEach(btn => btn.classList.remove("active"));
+  const activeBtn = document.querySelector(`.theme-btn[onclick="setTheme('${themeName}')"]`);
+  if (activeBtn) activeBtn.classList.add("active");
+
+  // Save preference
+  localStorage.setItem("ai_logistics_theme", themeName);
+};
+
+// Auto-restore saved theme on load
+const savedTheme = localStorage.getItem("ai_logistics_theme") || "cyber";
+document.documentElement.setAttribute("data-theme", savedTheme);
 
 // Navigation Tab Switcher
 function initNavigation() {
@@ -21,7 +37,7 @@ function initNavigation() {
     matching: '<i class="fa-solid fa-boxes-packing" style="color: var(--primary);"></i> Load Matching & MIP Optimization',
     visualization: '<i class="fa-solid fa-satellite" style="color: var(--primary);"></i> World Satellite Route Map',
     performance: '<i class="fa-solid fa-gauge-high" style="color: var(--primary);"></i> ML Model Performance & SHAP',
-    impact: '<i class="fa-solid fa-leaf" style="color: var(--success);"></i> Fleet Sustainability & ROI'
+    impact: '<i class="fa-solid fa-leaf" style="color: var(--success);"></i> Fleet Sustainability ROI'
   };
 
   navItems.forEach(item => {
@@ -46,6 +62,37 @@ function initNavigation() {
   });
 }
 
+// Quick Scenario Presets Handler
+window.applyPreset = function(presetKey) {
+  const presets = {
+    us: { origin: "Chicago", dest: "Las Vegas", booking: "Spot", load: "Dry Van", weight: 14500, terminal: "Omaha" },
+    india: { origin: "Mumbai", dest: "Delhi", booking: "Spot", load: "Dry Van", weight: 12000, terminal: "Mumbai" },
+    europe: { origin: "Rotterdam", dest: "Frankfurt", booking: "Contract", load: "Container Trailer", weight: 18000, terminal: "Rotterdam" },
+    asia: { origin: "Shanghai", dest: "Shenzhen", booking: "Dedicated", load: "Container Trailer", weight: 38000, terminal: "Shanghai" }
+  };
+
+  const p = presets[presetKey];
+  if (!p) return;
+
+  const o = document.getElementById("pred-origin");
+  const d = document.getElementById("pred-dest");
+  const b = document.getElementById("pred-booking");
+  const l = document.getElementById("pred-load-type");
+  const w = document.getElementById("pred-weight");
+  const t = document.getElementById("pred-terminal");
+
+  if (o) o.value = p.origin;
+  if (d) d.value = p.dest;
+  if (b) b.value = p.booking;
+  if (l) l.value = p.load;
+  if (w) w.value = p.weight;
+  if (t) t.value = p.terminal;
+
+  // Trigger form submit automatically
+  const form = document.getElementById("prediction-form");
+  if (form) form.dispatchEvent(new Event("submit"));
+};
+
 // Load Global Cities from API into Form Selects
 async function loadGlobalCities() {
   try {
@@ -60,7 +107,7 @@ async function loadGlobalCities() {
 
     if (!originSelect || !destSelect || !terminalSelect) return;
 
-    // Build optgroups
+    // Group by region
     const grouped = {};
     data.cities.forEach(c => {
       if (!grouped[c.region]) grouped[c.region] = [];
@@ -108,7 +155,7 @@ async function loadOverviewData() {
       values: [data.total_trips - data.high_risk_return_trips, data.high_risk_return_trips],
       type: 'pie',
       hole: 0.45,
-      marker: { colors: ['#00F2FE', '#FF3366'] },
+      marker: { colors: ['#10B981', '#EF4444'] },
       textinfo: 'label+percent',
       insidetextorientation: 'radial'
     }];
@@ -228,6 +275,42 @@ function initMatchingSystem() {
     }
   });
 }
+
+// Live Search Filter for Return Load Table
+window.filterMatchingTable = function() {
+  const query = document.getElementById("matching-search").value.toLowerCase();
+  const rows = document.querySelectorAll("#matching-tbody tr");
+
+  rows.forEach(tr => {
+    const text = tr.textContent.toLowerCase();
+    tr.style.display = text.includes(query) ? "" : "none";
+  });
+};
+
+// Interactive Live Fleet ROI Simulator
+window.updateROISimulator = function() {
+  const fleetSize = parseInt(document.getElementById("slider-fleet").value) || 150;
+  const fuelPrice = parseFloat(document.getElementById("slider-fuel").value) || 4.15;
+
+  document.getElementById("slider-fleet-val").textContent = `${fleetSize} Trucks`;
+  document.getElementById("slider-fuel-val").textContent = `$${fuelPrice.toFixed(2)} / gal`;
+
+  // Calculated estimates per truck
+  const milesSavedPerTruck = 3650.0;
+  const totalMilesSaved = fleetSize * milesSavedPerTruck;
+  const gallonsSaved = totalMilesSaved / 6.8;
+  const fuelCostSaved = gallonsSaved * fuelPrice;
+
+  // Additional revenue from return freight payload matching (~$1,800 / truck / yr)
+  const freightRevenue = fleetSize * 1850.0;
+  const totalSavings = fuelCostSaved + freightRevenue;
+
+  const co2Tons = (gallonsSaved * 10.18) / 1000.0;
+
+  document.getElementById("sim-savings").textContent = `$${totalSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  document.getElementById("sim-gallons").textContent = `${Math.round(gallonsSaved).toLocaleString()} Gallons`;
+  document.getElementById("sim-co2").textContent = `${co2Tons.toFixed(1)} Tons`;
+};
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Page 4: World Satellite Map Handler

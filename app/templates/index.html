@@ -29,8 +29,8 @@
       cursor: pointer; transition: all 0.25s; font-family: 'Outfit', sans-serif;
     }
     .map-layer-btn:hover, .map-layer-btn.active {
-      background: linear-gradient(135deg, #4FACFE, #00F2FE); color: #050B14; border-color: transparent; font-weight: 700;
-      box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+      background: var(--primary-gradient); color: #FFF; border-color: transparent; font-weight: 700;
+      box-shadow: var(--shadow-glow);
     }
     #route-map { height: 560px; width: 100%; }
     #map-legend {
@@ -96,8 +96,17 @@
   <div class="main-content">
     <div class="header">
       <div class="header-title" id="page-header-title"><i class="fa-solid fa-globe" style="color: var(--primary);"></i> Executive Fleet Overview</div>
-      <div style="display: flex; align-items: center; gap: 14px;">
-        <div class="header-badge"><i class="fa-solid fa-database"></i> 89 Global Logistics Hubs Connected</div>
+      
+      <div class="header-controls">
+        <!-- Interactive Theme Palette Switcher -->
+        <div class="theme-switcher">
+          <button class="theme-btn active" onclick="setTheme('cyber')">🌌 Cyber</button>
+          <button class="theme-btn" onclick="setTheme('emerald')">🌿 Emerald</button>
+          <button class="theme-btn" onclick="setTheme('obsidian')">🔮 Violet</button>
+          <button class="theme-btn" onclick="setTheme('light')">☀️ Light</button>
+        </div>
+
+        <div class="header-badge"><i class="fa-solid fa-database"></i> 89 Global Hubs</div>
       </div>
     </div>
 
@@ -112,7 +121,7 @@
               <div class="kpi-icon"><i class="fa-solid fa-truck"></i></div>
             </div>
             <div class="kpi-value" id="kpi-vehicles">--</div>
-            <div class="kpi-sub"><i class="fa-solid fa-check-circle" style="color:var(--success);"></i> Class 8 & Heavy Duty Commercial</div>
+            <div class="kpi-sub"><i class="fa-solid fa-check-circle" style="color:var(--success);"></i> Class 8 & Heavy Commercial</div>
           </div>
 
           <div class="kpi-card">
@@ -121,13 +130,13 @@
               <div class="kpi-icon"><i class="fa-solid fa-route"></i></div>
             </div>
             <div class="kpi-value" id="kpi-trips">--</div>
-            <div class="kpi-sub"><i class="fa-solid fa-clock-rotate-left"></i> Historical & Real-time telemetry</div>
+            <div class="kpi-sub"><i class="fa-solid fa-clock-rotate-left"></i> Real-time Telemetry</div>
           </div>
 
           <div class="kpi-card">
             <div class="kpi-header">
               <div class="kpi-label">Baseline Empty Return Rate</div>
-              <div class="kpi-icon" style="background:rgba(255,51,102,0.1);color:var(--danger);"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <div class="kpi-icon" style="background:rgba(239,68,68,0.15);color:var(--danger);"><i class="fa-solid fa-triangle-exclamation"></i></div>
             </div>
             <div class="kpi-value" id="kpi-empty-rate" style="color: var(--danger);">--</div>
             <div class="kpi-sub"><i class="fa-solid fa-arrow-down" style="color:var(--danger);"></i> Target: Reduce to &lt; 15%</div>
@@ -145,7 +154,7 @@
           <div class="kpi-card">
             <div class="kpi-header">
               <div class="kpi-label">High-Risk Empty Dispatches</div>
-              <div class="kpi-icon" style="background:rgba(255,179,0,0.1);color:var(--warning);"><i class="fa-solid fa-flag"></i></div>
+              <div class="kpi-icon" style="background:rgba(245,158,11,0.15);color:var(--warning);"><i class="fa-solid fa-flag"></i></div>
             </div>
             <div class="kpi-value" id="kpi-high-risk" style="color: var(--warning);">--</div>
             <div class="kpi-sub"><i class="fa-solid fa-shield-halved"></i> Actionable return load candidates</div>
@@ -154,7 +163,7 @@
           <div class="kpi-card">
             <div class="kpi-header">
               <div class="kpi-label">Quantified Cost Savings</div>
-              <div class="kpi-icon" style="background:rgba(0,230,118,0.1);color:var(--success);"><i class="fa-solid fa-piggy-bank"></i></div>
+              <div class="kpi-icon" style="background:rgba(16,185,129,0.15);color:var(--success);"><i class="fa-solid fa-piggy-bank"></i></div>
             </div>
             <div class="kpi-value" id="kpi-savings" style="color: var(--success);">--</div>
             <div class="kpi-sub"><i class="fa-solid fa-leaf" style="color:var(--success);"></i> Fuel saved + backhaul margin</div>
@@ -180,6 +189,15 @@
               <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--primary);"></i> Predict Return Journey Risk Before Delivery Completion</div>
               <div class="section-subtitle">Evaluates trip telemetry, destination market volume, equipment type, and historical backhaul rates</div>
             </div>
+          </div>
+
+          <!-- Interactive Scenario Presets Bar -->
+          <div class="preset-bar">
+            <div class="preset-title"><i class="fa-solid fa-bolt" style="color:var(--primary);"></i> Quick Presets:</div>
+            <button class="preset-btn" onclick="applyPreset('us')">🇺🇸 US Spot (Chicago → Las Vegas)</button>
+            <button class="preset-btn" onclick="applyPreset('india')">🇮🇳 India Corridor (Mumbai → Delhi)</button>
+            <button class="preset-btn" onclick="applyPreset('europe')">🇪🇺 Europe Cross-Border (Rotterdam → Frankfurt)</button>
+            <button class="preset-btn" onclick="applyPreset('asia')">🌏 Asia Intermodal (Shanghai → Shenzhen)</button>
           </div>
 
           <form id="prediction-form">
@@ -314,6 +332,14 @@
             <button class="btn-primary" id="btn-run-matching"><i class="fa-solid fa-rotate"></i> Find & Optimize Matches</button>
           </div>
 
+          <!-- Interactive Search Filter Bar -->
+          <div style="margin-bottom: 18px; display: flex; gap: 12px; align-items: center;">
+            <div style="position: relative; flex: 1;">
+              <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 13px; color: var(--text-dim);"></i>
+              <input type="text" id="matching-search" class="form-control" placeholder="Search pickup city, drop city, or shipment ID..." style="padding-left: 38px;" onkeyup="filterMatchingTable()">
+            </div>
+          </div>
+
           <div style="overflow-x: auto;">
             <table class="custom-table" id="matching-table">
               <thead>
@@ -425,7 +451,7 @@
         </div>
       </div>
 
-      <!-- PAGE 6: BUSINESS IMPACT -->
+      <!-- PAGE 6: BUSINESS IMPACT & INTERACTIVE ROI SIMULATOR -->
       <div class="page" id="page-impact">
         <div class="card-section">
           <div class="section-header">
@@ -462,6 +488,48 @@
               <div class="impact-number" id="imp-co2">--</div>
               <div style="font-weight: 600; color: var(--text-main);">CO₂ Emissions Avoided</div>
               <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">10.18 kg CO₂ reduced per gallon saved</div>
+            </div>
+          </div>
+
+          <!-- Interactive Live ROI & Fleet Simulator -->
+          <div class="simulator-box">
+            <div style="font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+              <i class="fa-solid fa-sliders" style="color: var(--primary);"></i> Interactive Fleet ROI & Carbon Reduction Simulator
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+              <div>
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <span>Active Commercial Fleet Size:</span>
+                    <span id="slider-fleet-val" style="color: var(--primary);">150 Trucks</span>
+                  </div>
+                  <input type="range" min="10" max="1000" step="10" value="150" class="custom-slider" id="slider-fleet" oninput="updateROISimulator()">
+                </div>
+
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <span>Average Diesel Price ($/gal):</span>
+                    <span id="slider-fuel-val" style="color: var(--success);">$4.15 / gal</span>
+                  </div>
+                  <input type="range" min="3.00" max="6.00" step="0.05" value="4.15" class="custom-slider" id="slider-fuel" oninput="updateROISimulator()">
+                </div>
+              </div>
+
+              <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-highlight); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; gap: 12px;">
+                <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                  <span style="color: var(--text-muted);">Simulated Annual Savings:</span>
+                  <strong id="sim-savings" style="color: var(--success); font-size: 18px;">$341,550.00</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                  <span style="color: var(--text-muted);">Simulated Diesel Saved:</span>
+                  <strong id="sim-gallons" style="color: var(--primary); font-size: 16px;">82,300 Gallons</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                  <span style="color: var(--text-muted);">Simulated CO₂ Offset:</span>
+                  <strong id="sim-co2" style="color: var(--warning); font-size: 16px;">837.8 Tons</strong>
+                </div>
+              </div>
             </div>
           </div>
         </div>
